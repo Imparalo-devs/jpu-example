@@ -19,4 +19,11 @@ public class SentimentAnalyzer {
             System.out.println("Result Confidence: " + resultConfidence);
         }
     }
+
+    public static void main(String[] args) {
+        ChatDatabase chatDatabase = new ChatDatabase();
+        SentimentIPU sentimentIPU = new SentimentIPU();
+        SentimentAnalyzer sentimentAnalyzer = new SentimentAnalyzer(chatDatabase, sentimentIPU);
+        sentimentAnalyzer.start();
+    }
 }
