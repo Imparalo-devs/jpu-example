@@ -19,4 +19,10 @@ public class SentimentAnalyzer {
             currentChat = chatDatabase.getChat();
         }
     }
+    public static void main(String[] args) {
+        ChatDatabase chatDatabase = new ChatDatabase();
+        SentimentProcessor sentimentProcessor = new SentimentProcessor();
+        SentimentAnalyzer sentimentAnalyzer = new SentimentAnalyzer(chatDatabase, sentimentProcessor);
+        sentimentAnalyzer.start();
+    }
 }
