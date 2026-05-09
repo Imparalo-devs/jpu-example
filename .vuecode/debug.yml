@@ -1,0 +1,14 @@
+stack: java
+build_cmd: |
+  # Update package list and install any required system dependencies
+  sudo apt-get update -y
+  # Install Maven (if not already present in the Docker image)
+  sudo apt-get install -y maven
+  # Clean and compile the project, running tests
+  mvn clean install -DskipTests=false
+start_cmd: "mvn exec:java -Dexec.mainClass=vcpu.SentimentIPU"
+log_paths:
+  - target/surefire-reports
+health_check: "http://localhost:8080/health"
+health_timeout: 90
+docker_image: "maven:3.9-eclipse-temurin-21"
