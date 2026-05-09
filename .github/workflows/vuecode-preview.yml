@@ -1,0 +1,8 @@
+name: VueCode Run
+on: [push, workflow_dispatch]
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "=== Repository contents ===" && find . -maxdepth 2 -not -path './.git/*' | sort
