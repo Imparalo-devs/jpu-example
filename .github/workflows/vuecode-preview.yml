@@ -1,0 +1,25 @@
+name: VueCode Run
+on: [push, workflow_dispatch]
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Load .vuecode/ci.yml
+        run: |
+          python3 - << 'PYEOF'
+          import yaml, os
+          if not os.path.exists('.vuecode/ci.yml'):
+              exit(0)
+          cfg = yaml.safe_load(open('.vuecode/ci.yml')) or {}
+          genv = os.environ.get('GITHUB_ENV', '')
+          if not genv:
+              exit(0)
+          with open(genv, 'a') as f:
+              for k, v in (cfg.get('env') or {}).items():
+                  f.write(str(k) + '=' + str(v) + '\n')
+              for fld in ('build_cmd', 'test_cmd', 'start_cmd'):
+                  if fld in cfg:
+                      f.write('VC_' + fld.upper() + '=' + str(cfg[fld]) + '\n')
+          PYEOF
+      - run: echo "=== Repository contents ===" && find . -maxdepth 2 -not -path './.git/*' | sort
