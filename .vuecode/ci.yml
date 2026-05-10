@@ -1,0 +1,7 @@
+# VueCode CI configuration — auto-generated, edit freely
+# Changes take effect on the next run without regenerating the workflow.
+# Supported keys: build_cmd, test_cmd, start_cmd, env (map of key: value)
+#
+stack: unknown
+build_cmd: echo 'configure build_cmd here'
+env: {}
